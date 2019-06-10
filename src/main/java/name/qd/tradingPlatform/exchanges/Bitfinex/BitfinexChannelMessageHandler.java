@@ -8,7 +8,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.fasterxml.jackson.databind.JsonNode;
 
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
-import name.qd.v.exchanges.book.MarketBook;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 import name.qd.tradingPlatform.product.ProductMapper;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
