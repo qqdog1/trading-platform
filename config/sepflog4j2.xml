@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<Appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="[%-5level][%d{HH:mm:ss.SSS}][%t][%c{1}] - %msg%n"/>
+		</Console>
+		<RollingFile name="File" fileName="./logs/SingleExchangePairFinder.log" filePattern="./logs/SingleExchangePairFinder-%d{MM-dd-yyyy}.log">
+			<PatternLayout pattern="[%-5level][%d{HH:mm:ss.SSS}][%t][%c{1}] - %msg%n"/>
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Root level="info">
+			<AppenderRef ref="Console"/>
+			<AppenderRef ref="File"/>
+		</Root>
+	</Loggers>
+</Configuration>

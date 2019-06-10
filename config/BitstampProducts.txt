@@ -1,0 +1,7 @@
+BTC_USD=btcusd
+ETH_USD=ethusd
+BCH_USD=bchusd
+LTC_USD=ltcusd
+ETH_BTC=ethbtc
+LTC_BTC=ltcbtc
+BCH_BTC=bchbtc

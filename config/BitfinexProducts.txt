@@ -1,0 +1,16 @@
+BTC_USD=btcusd
+ETH_USD=ethusd
+BCH_USD=bchusd
+ETC_USD=etcusd
+LTC_USD=ltcusd
+NEO_USD=neousd
+TRX_USD=trxusd
+ETH_BTC=ethbtc
+LTC_BTC=ltcbtc
+NEO_BTC=neobtc
+BCH_BTC=bchbtc
+XMR_BTC=xmrbtc
+TRX_BTC=trxbtc
+NEO_ETH=neoeth
+BCH_ETH=bcheth
+TRX_ETH=trxeth

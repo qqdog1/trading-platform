@@ -1,0 +1,12 @@
+BTC_USD=btc_usdt
+ETH_USD=eth_usdt
+BCH_USD=bcc_usdt
+ETC_USD=etc_usdt
+LTC_USD=ltc_usdt
+NEO_USD=neo_usdt
+MITH_USD=mith_usdt
+ETH_BTC=eth_btc
+LTC_BTC=ltc_btc
+NEO_BTC=neo_btc
+BCH_BTC=bcc_btc
+MITH_BTC=mith_btc

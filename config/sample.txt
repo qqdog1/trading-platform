@@ -1,0 +1,4 @@
+rest=
+ws=
+key=
+secret=
