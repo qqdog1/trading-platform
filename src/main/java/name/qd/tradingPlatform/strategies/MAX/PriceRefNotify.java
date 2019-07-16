@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 
 public class PriceRefNotify extends Strategy {
 	private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
@@ -192,5 +193,11 @@ public class PriceRefNotify extends Strategy {
 	@Override
 	public boolean stop() {
 		return true;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Map;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 
 public class MAXPriceCheater extends Strategy {
 
@@ -50,5 +51,11 @@ public class MAXPriceCheater extends Strategy {
 	@Override
 	public boolean stop() {
 		return false;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		// TODO Auto-generated method stub
+		
 	}
 }

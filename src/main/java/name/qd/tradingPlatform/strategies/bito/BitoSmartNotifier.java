@@ -2,10 +2,8 @@ package name.qd.tradingPlatform.strategies.bito;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
@@ -14,7 +12,11 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ExchangeManager;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 import name.qd.tradingPlatform.product.ProductMapper;
 import name.qd.tradingPlatform.strategies.Book;
 import name.qd.tradingPlatform.strategies.Strategy;
@@ -23,9 +25,6 @@ import name.qd.tradingPlatform.strategies.frame.PriceNotifyFrame;
 import name.qd.tradingPlatform.strategies.frame.SingleMessageFrame;
 import name.qd.tradingPlatform.strategies.order.SidePrice;
 import name.qd.tradingPlatform.strategies.order.TradeCycle;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 
 public class BitoSmartNotifier extends Strategy {
 	private static Logger log = LoggerFactory.getLogger(MAXSmartPairFindNotifier.class);
@@ -423,5 +422,10 @@ public class BitoSmartNotifier extends Strategy {
 	public boolean stop() {
 		scheduledFuture.cancel(true);
 		return true;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		
 	}
 }

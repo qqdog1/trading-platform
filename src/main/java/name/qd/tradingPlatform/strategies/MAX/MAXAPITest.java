@@ -6,12 +6,12 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import name.qd.tradingPlatform.exchanges.Exchange;
-import name.qd.tradingPlatform.exchanges.ExchangeManager;
-import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
+import name.qd.tradingPlatform.exchanges.Exchange;
+import name.qd.tradingPlatform.exchanges.ExchangeManager;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
+import name.qd.tradingPlatform.strategies.Strategy;
 
 public class MAXAPITest extends Strategy {
 	private static Logger log = LoggerFactory.getLogger(MAXAPITest.class);
@@ -81,5 +81,10 @@ public class MAXAPITest extends Strategy {
 	@Override
 	public boolean stop() {
 		return true;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		
 	}
 }

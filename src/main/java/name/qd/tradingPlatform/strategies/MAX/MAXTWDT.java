@@ -12,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import name.qd.tradingPlatform.exchanges.ExchangeManager;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 import name.qd.tradingPlatform.product.ProductMapper;
 import name.qd.tradingPlatform.strategies.Book;
 import name.qd.tradingPlatform.strategies.Strategy;
@@ -264,5 +265,11 @@ public class MAXTWDT extends Strategy {
 	@Override
 	public boolean stop() {
 		return true;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		// TODO Auto-generated method stub
+		
 	}
 }

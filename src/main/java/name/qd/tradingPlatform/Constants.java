@@ -28,6 +28,7 @@ public class Constants {
 		OKEx,
 		MAX,
 		BitoPro,
+		Deribit,
 		;
 	}
 	
@@ -167,6 +168,9 @@ public class Constants {
 		FMF_MAX,
 		
 		ETC_BCH,
+		
+		BTC_PERPETUAL,
+		ETH_PERPETUAL,
 		;
 	}
 	

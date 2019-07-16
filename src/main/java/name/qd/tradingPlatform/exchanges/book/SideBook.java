@@ -60,4 +60,16 @@ public class SideBook {
     public Double[] topQty(int n) {
 		return bookMap.values().stream().limit(n).toArray(m -> new Double[m]);
 	}
+    
+    public Double[] getAllPrice() {
+    	return topPrice(bookMap.size());
+    }
+    
+    public Double[] getAllQty() {
+    	return topQty(bookMap.size());
+    }
+    
+    public int getSize() {
+    	return bookMap.size();
+    }
 }

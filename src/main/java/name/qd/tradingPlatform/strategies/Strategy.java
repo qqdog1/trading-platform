@@ -4,9 +4,10 @@ import java.util.Map;
 
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 
 public abstract class Strategy {
-	private Map<ExchangeName, Product[]> map;
+	protected Map<ExchangeName, Product[]> map;
 	
 	public Strategy(Map<ExchangeName, Product[]> map) {
 		this.map = map;
@@ -17,6 +18,7 @@ public abstract class Strategy {
 	}
 	
 	public abstract void onBook(ExchangeName exchangeName, Product product, double bidPrice, double bidQty, double askPrice, double askQty);
+	public abstract void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook);
 	public abstract void onTick();
 	public abstract void onOrderAck(int orderId);
 	public abstract void onOrderRej(int orderId);

@@ -5,6 +5,7 @@ import name.qd.tradingPlatform.exchanges.Bitfinex.BitfinexExchange;
 import name.qd.tradingPlatform.exchanges.BitoPro.BitoProExchange;
 import name.qd.tradingPlatform.exchanges.Bitstamp.BitstampExchange;
 import name.qd.tradingPlatform.exchanges.Bittrex.BittrexExchange;
+import name.qd.tradingPlatform.exchanges.Deribit.DeribitExchange;
 import name.qd.tradingPlatform.exchanges.HitBTC.HitBTCExchange;
 import name.qd.tradingPlatform.exchanges.Huobi.HuobiExchange;
 import name.qd.tradingPlatform.exchanges.Kraken.KrakenExchange;
@@ -34,6 +35,7 @@ public class ExchangeManager {
 	private Exchange huobi;
 	private Exchange max;
 	private Exchange bitopro;
+	private Exchange deribit;
 
 	public static ExchangeManager getInstance() {
 		return instance;
@@ -116,6 +118,11 @@ public class ExchangeManager {
 					bitopro = new BitoProExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
 				}
 				return bitopro;
+			case Deribit:
+				if(deribit == null) {
+					deribit = new DeribitExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+				}
+				return deribit;
 		}
 		return null;
 	}

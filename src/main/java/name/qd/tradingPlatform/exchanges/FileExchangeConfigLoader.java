@@ -16,7 +16,7 @@ public class FileExchangeConfigLoader implements ExchangeConfigLoader {
 	@Override
 	public ExchangeConfig getExchangeConfig(ExchangeName exchangeName) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("/config/").append(exchangeName.name()).append(".txt");
+		sb.append("./config/").append(exchangeName.name()).append(".txt");
 		try (FileInputStream fIn = new FileInputStream(sb.toString())) {
 			Properties properties = new Properties();
 			properties.load(fIn);

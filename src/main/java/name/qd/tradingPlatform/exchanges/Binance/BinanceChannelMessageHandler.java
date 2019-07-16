@@ -1,19 +1,18 @@
 package name.qd.tradingPlatform.exchanges.Binance;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.product.ProductMapper;
 import name.qd.tradingPlatform.strategies.Strategy;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
 
 public class BinanceChannelMessageHandler extends ChannelMessageHandler {
-	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
+	private Map<String, List<Strategy>> mapStrategies;
 	private final ProductMapper productMapper;
 	private final ExchangeName exchangeName;
 	

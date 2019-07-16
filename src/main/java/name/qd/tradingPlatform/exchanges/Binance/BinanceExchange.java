@@ -287,13 +287,11 @@ public class BinanceExchange implements Exchange {
 
 	@Override
 	public Map<String, Double> getTickSize() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void unsubscribe(Strategy strategy) {
-		// TODO Auto-generated method stub
 		
 	}
 }

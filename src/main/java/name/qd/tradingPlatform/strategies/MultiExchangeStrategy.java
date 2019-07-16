@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 
 public class MultiExchangeStrategy extends Strategy {
 	private static final Logger log = LoggerFactory.getLogger(MultiExchangeStrategy.class);
@@ -110,5 +111,11 @@ public class MultiExchangeStrategy extends Strategy {
 	@Override
 	public boolean stop() {
 		return true;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		// TODO Auto-generated method stub
+		
 	}
 }

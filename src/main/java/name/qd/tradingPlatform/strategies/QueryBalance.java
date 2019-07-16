@@ -4,6 +4,7 @@ import java.util.Map;
 
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeManager;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
 
@@ -46,5 +47,11 @@ public class QueryBalance extends Strategy {
 	@Override
 	public boolean stop() {
 		return true;
+	}
+
+	@Override
+	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
+		// TODO Auto-generated method stub
+		
 	}
 }
