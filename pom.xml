@@ -2,12 +2,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>name.qd</groupId>
-	<artifactId>arbitrage-digital-currencies</artifactId>
+	<artifactId>trading-platform</artifactId>
 	<version>0.0.1</version>
 	<packaging>jar</packaging>
-
-	<name>arbitrage-digital-currencies</name>
-	<url>http://maven.apache.org</url>
 
 	<properties>
     	<maven.compiler.source>1.8</maven.compiler.source>
