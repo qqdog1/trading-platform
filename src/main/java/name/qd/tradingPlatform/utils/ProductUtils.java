@@ -29,6 +29,7 @@ public class ProductUtils {
 		if(exchangeName == ExchangeName.Kraken) {
 			value = value.replace("XBT", "BTC");
 		}
-		return value.toLowerCase().replace("/", "").replace("_", "").replace("-", "").replace("usdt", "usd");
+		//.replace("usdt", "usd")
+		return value.toLowerCase().replace("/", "").replace("_", "").replace("-", "");
 	}
 }
