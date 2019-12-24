@@ -12,10 +12,13 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeManager;
 import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Book;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.strategies.order.OrderUtils;
@@ -23,16 +26,13 @@ import name.qd.tradingPlatform.strategies.order.SidePrice;
 import name.qd.tradingPlatform.strategies.order.TradeCycle;
 import name.qd.tradingPlatform.strategies.order.TradingStatus;
 import name.qd.tradingPlatform.strategies.utils.BalanceChecker;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 
 public class MAXAutoTrade extends Strategy {
 	private static Logger log = LoggerFactory.getLogger(MAXAutoTrade.class);
 	private static int CHECK_INTERVAL = 1000;
 	private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 	private ScheduledFuture<?> scheduledFuture;
-	private ProductMapper productMapper = ExchangeManager.getInstance().getProductMapper();
+	private FileProductMapperManager productMapper = ExchangeManager.getInstance().getFileProductMapperManager();
 	private List<Product> lstProducts = productMapper.getProducts(ExchangeName.MAX);
 	private Map<Product, Book> mapBook = new HashMap<>();
 	private List<Product[]> lst = new ArrayList<>();

@@ -17,7 +17,7 @@ import name.qd.tradingPlatform.Constants.Product;
 import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ExchangeManager;
 import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Book;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.strategies.MAX.MAXSmartPairFindNotifier;
@@ -31,7 +31,7 @@ public class BitoSmartNotifier extends Strategy {
 	private static int CHECK_INTERVAL = 1000;
 	private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 	private ScheduledFuture<?> scheduledFuture;
-	private ProductMapper productMapper = ExchangeManager.getInstance().getProductMapper();
+	private FileProductMapperManager productMapper = ExchangeManager.getInstance().getFileProductMapperManager();
 	private List<Product> lstProducts = productMapper.getProducts(ExchangeName.MAX);
 	private Map<Product, Book> mapBook = new HashMap<>();
 	private List<Product[]> lst = new ArrayList<>();

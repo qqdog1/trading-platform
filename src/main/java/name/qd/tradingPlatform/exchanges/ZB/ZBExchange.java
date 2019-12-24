@@ -13,14 +13,14 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import name.qd.tradingPlatform.exchanges.Exchange;
-import name.qd.tradingPlatform.exchanges.ExchangeConfig;
-import name.qd.tradingPlatform.product.ProductMapper;
-import name.qd.tradingPlatform.strategies.Strategy;
-import name.qd.tradingPlatform.utils.JsonUtils;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
 import name.qd.tradingPlatform.Constants.Side;
+import name.qd.tradingPlatform.exchanges.Exchange;
+import name.qd.tradingPlatform.exchanges.ExchangeConfig;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
+import name.qd.tradingPlatform.strategies.Strategy;
+import name.qd.tradingPlatform.utils.JsonUtils;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -30,10 +30,10 @@ public class ZBExchange implements Exchange {
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
 	private ExchangeConfig exchangeConfig;
-	private ProductMapper productMapper;
+	private FileProductMapperManager productMapper;
 	private HttpUrl httpUrl;
 	
-	public ZBExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public ZBExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());

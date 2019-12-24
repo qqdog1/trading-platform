@@ -16,16 +16,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
 import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.utils.JsonUtils;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,13 +38,13 @@ public class BitfinexExchange implements Exchange {
 	private final ExchangeConfig exchangeConfig;
 	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private WebSocket webSocket;
 	private ChannelMessageHandler channelMessageHandler;
 	private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	private HttpUrl httpUrl;
 	
-	public BitfinexExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public BitfinexExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		channelMessageHandler = new BitfinexChannelMessageHandler(mapStrategies, productMapper, getExchangeName());

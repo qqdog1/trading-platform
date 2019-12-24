@@ -14,16 +14,16 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
 import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.utils.JsonUtils;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
@@ -32,7 +32,7 @@ public class BitoProExchange implements Exchange {
 	private Logger log = LoggerFactory.getLogger(BitoProExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
 	private Map<String, ChannelMessageHandler> mapMessageHandler = new HashMap<>();
 	private List<OkHttpClient> lstOkHttpClient = new ArrayList<>();
@@ -42,7 +42,7 @@ public class BitoProExchange implements Exchange {
 	private ExecutorService executor = Executors.newFixedThreadPool(productSize);
 	private Map<String, WebSocket> mapProductWS = new HashMap<>();
 
-	public BitoProExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public BitoProExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 	}

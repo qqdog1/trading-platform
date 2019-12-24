@@ -11,8 +11,7 @@ public class ProductUtils {
 	public static String getProductString(ExchangeName exchangeName, String value) {
 		if(exchangeName == ExchangeName.Bittrex) {
 			value = value.replace("BCC", "BCH");
-			String[] s = value.split("-");
-			value = s[1] + s[0];
+			value.replace("-", "");
 		}
 		if(exchangeName == ExchangeName.Binance) {
 			value = value.replace("BCC", "BCH");
@@ -22,8 +21,7 @@ public class ProductUtils {
 			value = value.replace("bcc", "bch");
 		}
 		if(exchangeName == ExchangeName.Poloniex) {
-			String[] s = value.split("_");
-			value = s[1] + s[0];
+			value.replace("_", "");
 		}
 		if(exchangeName == ExchangeName.ZB) {
 			value = value.replace("bcc", "bch");

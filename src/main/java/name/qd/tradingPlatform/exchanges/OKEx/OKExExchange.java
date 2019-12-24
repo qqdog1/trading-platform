@@ -20,16 +20,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
 import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.utils.JsonUtils;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -46,7 +46,7 @@ public class OKExExchange implements Exchange {
 	private WebSocket webSocket;
 	private ChannelMessageHandler channelMessageHandler;
 	private final ExecutorService executor = Executors.newSingleThreadExecutor();
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private HttpUrl httpUrl;
 	private Request.Builder orderRequestBuilder;
 	private Request.Builder cancelRequestBuilder;
@@ -56,7 +56,7 @@ public class OKExExchange implements Exchange {
 	private Map<Long, Strategy> mapExOrderIdToStrategy = new HashMap<>();
 	private Map<String, Double> mapBalance = new HashMap<>();
 	
-	public OKExExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public OKExExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		channelMessageHandler = new OKExChannelMessageHandler(this, mapStrategies, productMapper, mapExOrderIdToOrderId, mapExOrderIdToStrategy);

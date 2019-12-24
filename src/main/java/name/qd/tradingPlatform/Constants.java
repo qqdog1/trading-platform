@@ -17,6 +17,7 @@ public class Constants {
 	public enum ExchangeName {
 		Binance, 
 		Bitfinex, 
+		BTSE,
 		HitBTC, 
 		Poloniex, 
 		Bittrex, 
@@ -49,6 +50,8 @@ public class Constants {
 		OMG_USD,
 		KNC_USD,
 		EOS_USD,
+		XMR_USD,
+		USDT_USD,
 		
 		BTC_USDT,
 		ETH_USDT,

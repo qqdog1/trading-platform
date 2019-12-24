@@ -12,7 +12,7 @@ import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.trading.Order;
 
@@ -21,10 +21,10 @@ public class DeribitChannelMessageHandler extends ChannelMessageHandler {
 	private Map<String, List<Strategy>> mapStrategies;
 	private Map<Integer, Order> mapSequenceToOrder;
 	private Map<Integer, Order> mapOrderIdToOrder;
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private final ExchangeName exchangeName;
 	
-	public DeribitChannelMessageHandler(Map<String, List<Strategy>> mapStrategies, ProductMapper productMapper, ExchangeName exchangeName, Map<Integer, Order> mapSequenceToOrder, Map<Integer, Order> mapOrderIdToOrder) {
+	public DeribitChannelMessageHandler(Map<String, List<Strategy>> mapStrategies, FileProductMapperManager productMapper, ExchangeName exchangeName, Map<Integer, Order> mapSequenceToOrder, Map<Integer, Order> mapOrderIdToOrder) {
 		this.mapStrategies = mapStrategies;
 		this.productMapper = productMapper;
 		this.exchangeName = exchangeName;

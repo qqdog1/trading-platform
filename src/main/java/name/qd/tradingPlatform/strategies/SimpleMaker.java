@@ -13,17 +13,17 @@ import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeManager;
 import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.order.SidePrice;
 import name.qd.tradingPlatform.strategies.order.TradeCycle;
 import name.qd.tradingPlatform.strategies.order.TradingStatus;
 import name.qd.tradingPlatform.strategies.utils.BalanceChecker;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 
 public class SimpleMaker extends Strategy {
 	private static Logger log = LoggerFactory.getLogger(SimpleMaker.class);
@@ -32,7 +32,7 @@ public class SimpleMaker extends Strategy {
 	private Side firstProductSide;
 	private final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(1);
 	private ScheduledFuture<?> scheduledFuture;
-	private ProductMapper productMapper = ExchangeManager.getInstance().getProductMapper();
+	private FileProductMapperManager productMapper = ExchangeManager.getInstance().getFileProductMapperManager();
 	private static int CHECK_INTERVAL = 1000;
 	private TradingStatus tradingStatus;
 	private BalanceChecker balanceChecker = new BalanceChecker();

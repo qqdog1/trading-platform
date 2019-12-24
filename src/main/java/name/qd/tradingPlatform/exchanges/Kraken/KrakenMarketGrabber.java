@@ -7,7 +7,7 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 
 public class KrakenMarketGrabber implements Runnable {
@@ -15,9 +15,9 @@ public class KrakenMarketGrabber implements Runnable {
 	private Set<String> subscribeProducts;
 	private Map<String, List<Strategy>> mapStrategies;
 	private KrakenExchange exchange;
-	private ProductMapper productMapper;
+	private FileProductMapperManager productMapper;
 
-	public KrakenMarketGrabber(KrakenExchange exchange, Set<String> subscribeProducts, Map<String, List<Strategy>> mapStrategies, ProductMapper productMapper) {
+	public KrakenMarketGrabber(KrakenExchange exchange, Set<String> subscribeProducts, Map<String, List<Strategy>> mapStrategies, FileProductMapperManager productMapper) {
 		this.exchange = exchange;
 		this.subscribeProducts = subscribeProducts;
 		this.mapStrategies = mapStrategies;

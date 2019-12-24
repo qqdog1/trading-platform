@@ -24,17 +24,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
 import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
 import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.utils.JsonUtils;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 import okhttp3.FormBody;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -46,7 +46,7 @@ import okhttp3.WebSocketListener;
 public class MAXExchange implements Exchange {
 	private Logger log = LoggerFactory.getLogger(MAXExchange.class);
 	private final ExchangeConfig exchangeConfig;
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private WebSocket webSocket;
 	private HttpUrl httpUrl;
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
@@ -64,7 +64,7 @@ public class MAXExchange implements Exchange {
 	private Set<String> setAfterSnapshot = new HashSet<>();
 	private Map<String, List<JsonNode>> mapCacheBook = new HashMap<>();
 	
-	public MAXExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public MAXExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());

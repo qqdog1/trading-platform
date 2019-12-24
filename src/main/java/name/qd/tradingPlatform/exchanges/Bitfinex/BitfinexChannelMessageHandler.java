@@ -7,21 +7,21 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
-import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
-import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Side;
+import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
+import name.qd.tradingPlatform.strategies.Strategy;
 
 public class BitfinexChannelMessageHandler extends ChannelMessageHandler {
 	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
 	private final Map<String, MarketBook> mapBooks = new ConcurrentHashMap<>();
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private final ExchangeName exchangeName;
 	private Map<Integer, String> mapChannelIdToProduct = new HashMap<>();
 	
-	public BitfinexChannelMessageHandler(Map<String, List<Strategy>> mapStrategies, ProductMapper productMapper, ExchangeName exchangeName) {
+	public BitfinexChannelMessageHandler(Map<String, List<Strategy>> mapStrategies, FileProductMapperManager productMapper, ExchangeName exchangeName) {
 		this.mapStrategies = mapStrategies;
 		this.productMapper = productMapper;
 		this.exchangeName = exchangeName;

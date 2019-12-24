@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
-import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
-import name.qd.tradingPlatform.exchanges.book.MarketBook;
-import name.qd.tradingPlatform.product.ProductMapper;
-import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Side;
+import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
+import name.qd.tradingPlatform.exchanges.book.MarketBook;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
+import name.qd.tradingPlatform.strategies.Strategy;
 
 public class HitBTCChannelMessageHandler extends ChannelMessageHandler {
 	private static Logger log = LoggerFactory.getLogger(HitBTCChannelMessageHandler.class);
@@ -22,10 +22,10 @@ public class HitBTCChannelMessageHandler extends ChannelMessageHandler {
 	private Map<String, List<Strategy>> mapStrategies;
 	private final Map<String, MarketBook> mapBooks = new ConcurrentHashMap<>();
 	private ExchangeName exchangeName;
-	private ProductMapper productMapper;
+	private FileProductMapperManager productMapper;
 	private Map<Integer, Strategy> mapOrderIdToStrategy;
 	
-	public HitBTCChannelMessageHandler(HitBTCExchange exchange, Map<String, List<Strategy>> mapStrategies, ExchangeName exchangeName, ProductMapper productMapper, Map<Integer, Strategy> mapOrderIdToStrategy) {
+	public HitBTCChannelMessageHandler(HitBTCExchange exchange, Map<String, List<Strategy>> mapStrategies, ExchangeName exchangeName, FileProductMapperManager productMapper, Map<Integer, Strategy> mapOrderIdToStrategy) {
 		this.exchange = exchange;
 		this.mapStrategies = mapStrategies;
 		this.exchangeName = exchangeName;

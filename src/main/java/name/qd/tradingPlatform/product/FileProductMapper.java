@@ -18,45 +18,41 @@ import name.qd.tradingPlatform.Constants.Product;
 
 public class FileProductMapper implements ProductMapper {
 	private Logger log = LoggerFactory.getLogger(FileProductMapper.class);
-	private Map<ExchangeName, Map<Product, String>> mapProductToString = new HashMap<>();
-	private Map<ExchangeName, Map<String, Product>> mapStringToProduct = new HashMap<>();
-	
-	public FileProductMapper() {
-		for(ExchangeName exchangeName : ExchangeName.values()) {
-			mapProductToString.put(exchangeName, new HashMap<>());
-			mapStringToProduct.put(exchangeName, new HashMap<>());
-			try (FileInputStream fIn = new FileInputStream(ProductUtils.getProductFilePath(exchangeName))) {
-				Properties properties = new Properties();
-				properties.load(fIn);
-				for(Product product : Product.values()) {
-					String productString = properties.getProperty(product.name());
-					if(productString != null) {
-						mapProductToString.get(exchangeName).put(product, productString);
-						mapStringToProduct.get(exchangeName).put(productString, product);
-					}
+	private Map<Product, String> mapProductToString = new HashMap<>();
+	private Map<String, Product> mapStringToProduct = new HashMap<>();
+
+	public FileProductMapper(ExchangeName exchangeName) {
+		try (FileInputStream fIn = new FileInputStream(ProductUtils.getProductFilePath(exchangeName))) {
+			Properties properties = new Properties();
+			properties.load(fIn);
+			for (Product product : Product.values()) {
+				String productString = properties.getProperty(product.name());
+				if (productString != null) {
+					mapProductToString.put(product, productString);
+					mapStringToProduct.put(productString, product);
 				}
-			} catch (FileNotFoundException e) {
-				log.error("{} exchange product file not found.", exchangeName.name(), e);
-			} catch (IOException e) {
-				log.error("Read {} exchange product file failed.", exchangeName.name(), e);
 			}
+		} catch (FileNotFoundException e) {
+			log.error("{} exchange product file not found.", exchangeName.name(), e);
+		} catch (IOException e) {
+			log.error("Read {} exchange product file failed.", exchangeName.name(), e);
 		}
 	}
 
 	@Override
-	public String getExchangeProductString(Product product, ExchangeName exchangeName) {
-		return mapProductToString.get(exchangeName).get(product);
+	public String getExchangeProductString(Product product) {
+		return mapProductToString.get(product);
 	}
 
 	@Override
-	public Product getProduct(String product, ExchangeName exchangeName) {
-		return mapStringToProduct.get(exchangeName).get(product);
+	public Product getProduct(String product) {
+		return mapStringToProduct.get(product);
 	}
 
 	@Override
-	public List<Product> getProducts(ExchangeName exchangeName) {
+	public List<Product> getProducts() {
 		List<Product> lst = new ArrayList<>();
-		for(Product product : mapStringToProduct.get(exchangeName).values()) {
+		for (Product product : mapStringToProduct.values()) {
 			lst.add(product);
 		}
 		return lst;

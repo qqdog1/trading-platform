@@ -28,7 +28,7 @@ import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
 import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.trading.Order;
 import name.qd.tradingPlatform.utils.JsonUtils;
@@ -44,7 +44,7 @@ public class DeribitExchange implements Exchange {
 	private final ExchangeConfig exchangeConfig;
 	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private ChannelMessageHandler channelMessageHandler;
 	private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	private HttpUrl httpUrl;
@@ -53,7 +53,7 @@ public class DeribitExchange implements Exchange {
 	private Map<Integer, Order> mapOrderIdToOrder = new HashMap<>();
 	private Map<Integer, Order> mapSequenceToOrder = new HashMap<>();
 
-	public DeribitExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public DeribitExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());

@@ -1,5 +1,6 @@
 package name.qd.tradingPlatform.exchanges;
 
+import name.qd.tradingPlatform.exchanges.BTSE.BTSEExchange;
 import name.qd.tradingPlatform.exchanges.Binance.BinanceExchange;
 import name.qd.tradingPlatform.exchanges.Bitfinex.BitfinexExchange;
 import name.qd.tradingPlatform.exchanges.BitoPro.BitoProExchange;
@@ -15,12 +16,13 @@ import name.qd.tradingPlatform.exchanges.OKEx.OKExExchange;
 import name.qd.tradingPlatform.exchanges.Poloniex.PoloniexExchange;
 import name.qd.tradingPlatform.exchanges.ZB.ZBExchange;
 import name.qd.tradingPlatform.product.FileProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.product.ProductMapper;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 
 public class ExchangeManager {
 	private static ExchangeManager instance = new ExchangeManager();
-	private ProductMapper productMapper;
+	private FileProductMapperManager fileProductMapperManager;
 	private ExchangeConfigLoader exchangeConfigLoader;
 	private Exchange okEx;
 	private Exchange binance;
@@ -36,6 +38,7 @@ public class ExchangeManager {
 	private Exchange max;
 	private Exchange bitopro;
 	private Exchange deribit;
+	private Exchange btse;
 
 	public static ExchangeManager getInstance() {
 		return instance;
@@ -44,85 +47,90 @@ public class ExchangeManager {
 	private ExchangeManager() {
 //		exchangeConfigLoader = new HardCodeExchangeConfigLoader();
 		exchangeConfigLoader = new FileExchangeConfigLoader();
-		productMapper = new FileProductMapper();
+		fileProductMapperManager = new FileProductMapperManager();
 	}
 	
-	public ProductMapper getProductMapper() {
-		return productMapper;
+	public FileProductMapperManager getFileProductMapperManager() {
+		return fileProductMapperManager;
 	}
 	
 	public Exchange getExchange(ExchangeName exchangeName) {
 		switch(exchangeName) {
 			case OKEx:
 				if(okEx == null) {
-					okEx = new OKExExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					okEx = new OKExExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return okEx;
 			case Binance:
 				if(binance == null) {
-					binance = new BinanceExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					binance = new BinanceExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return binance;
 			case Bitfinex:
 				if(bitfinex == null) {
-					bitfinex = new BitfinexExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					bitfinex = new BitfinexExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return bitfinex;
 			case KuCoin:
 				if(kucoin == null) {
-					kucoin = new KuCoinExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					kucoin = new KuCoinExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return kucoin;
 			case HitBTC:
 				if(hitBTC == null) {
-					hitBTC = new HitBTCExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					hitBTC = new HitBTCExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return hitBTC;
 			case Bittrex:
 				if(bittrex == null) {
-					bittrex = new BittrexExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					bittrex = new BittrexExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return bittrex;
 			case Kraken:
 				if(kraken == null) {
-					kraken = new KrakenExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					kraken = new KrakenExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return kraken;
 			case ZB:
 				if(zb == null) {
-					zb = new ZBExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					zb = new ZBExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return zb;
 			case Poloniex:
 				if(poloniex == null) {
-					poloniex = new PoloniexExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					poloniex = new PoloniexExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return poloniex;
 			case Bitstamp:
 				if(bitstamp == null) {
-					bitstamp = new BitstampExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					bitstamp = new BitstampExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return bitstamp;
 			case Huobi:
 				if(huobi == null) {
-					huobi = new HuobiExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					huobi = new HuobiExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return huobi;
 			case MAX:
 				if(max == null) {
-					max = new MAXExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					max = new MAXExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return max;
 			case BitoPro:
 				if(bitopro == null) {
-					bitopro = new BitoProExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					bitopro = new BitoProExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return bitopro;
 			case Deribit:
 				if(deribit == null) {
-					deribit = new DeribitExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), productMapper);
+					deribit = new DeribitExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
 				}
 				return deribit;
+			case BTSE:
+				if(btse == null) {
+					btse = new BTSEExchange(exchangeConfigLoader.getExchangeConfig(exchangeName), fileProductMapperManager);
+				}
+				return btse;
 		}
 		return null;
 	}

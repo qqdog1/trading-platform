@@ -19,16 +19,16 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import name.qd.tradingPlatform.Constants.ExchangeName;
+import name.qd.tradingPlatform.Constants.Product;
+import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
 import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
-import name.qd.tradingPlatform.product.ProductMapper;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.utils.JsonUtils;
-import name.qd.tradingPlatform.Constants.ExchangeName;
-import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
 import okhttp3.Credentials;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
@@ -42,7 +42,7 @@ public class HitBTCExchange implements Exchange {
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
 	private ExchangeConfig exchangeConfig;
-	private ProductMapper productMapper;
+	private FileProductMapperManager productMapper;
 	private HttpUrl httpUrl;
 	private WebSocket webSocket;
 	private ChannelMessageHandler channelMessageHandler;
@@ -52,7 +52,7 @@ public class HitBTCExchange implements Exchange {
 	private Map<String, Double> mapBalance = new HashMap<>();
 	private Map<Integer, Strategy> mapOrderIdToStrategy = new HashMap<>();
 	
-	public HitBTCExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public HitBTCExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());

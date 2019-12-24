@@ -8,7 +8,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -19,14 +18,14 @@ import org.slf4j.LoggerFactory;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import name.qd.tradingPlatform.exchanges.Exchange;
-import name.qd.tradingPlatform.exchanges.ExchangeConfig;
-import name.qd.tradingPlatform.product.ProductMapper;
-import name.qd.tradingPlatform.strategies.Strategy;
-import name.qd.tradingPlatform.utils.JsonUtils;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
 import name.qd.tradingPlatform.Constants.Side;
+import name.qd.tradingPlatform.exchanges.Exchange;
+import name.qd.tradingPlatform.exchanges.ExchangeConfig;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
+import name.qd.tradingPlatform.strategies.Strategy;
+import name.qd.tradingPlatform.utils.JsonUtils;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -36,14 +35,14 @@ public class KrakenExchange implements Exchange {
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
 	private ExchangeConfig exchangeConfig;
-	private ProductMapper productMapper;
+	private FileProductMapperManager productMapper;
 	private HttpUrl httpUrl;
 	private Set<String> subscribeProducts = new HashSet<>();
 	private final ExecutorService executor = Executors.newSingleThreadExecutor();
 	private KrakenMarketGrabber marketGrabber;
 	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
 	
-	public KrakenExchange(ExchangeConfig exchangeConfig, ProductMapper productMapper) {
+	public KrakenExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());

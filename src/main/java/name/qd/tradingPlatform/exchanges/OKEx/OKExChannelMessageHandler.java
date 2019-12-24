@@ -12,6 +12,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.book.MarketBook;
+import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.product.ProductMapper;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.Constants.ExchangeName;
@@ -23,11 +24,11 @@ public class OKExChannelMessageHandler extends ChannelMessageHandler {
 	private Map<String, List<Strategy>> mapStrategies;
 	private final Map<String, MarketBook> mapBooks = new ConcurrentHashMap<>();
 	private Map<Long, Integer> mapExOrderIdToOrderId;
-	private final ProductMapper productMapper;
+	private final FileProductMapperManager productMapper;
 	private final ExchangeName exchangeName = ExchangeName.OKEx;
 	private Map<Long, Strategy> mapExOrderIdToStrategy;
 	
-	public OKExChannelMessageHandler(OKExExchange exchange, Map<String, List<Strategy>> mapStrategies, ProductMapper productMapper, Map<Long, Integer> mapExOrderIdToOrderId, Map<Long, Strategy> mapIdToStrategy) {
+	public OKExChannelMessageHandler(OKExExchange exchange, Map<String, List<Strategy>> mapStrategies, FileProductMapperManager productMapper, Map<Long, Integer> mapExOrderIdToOrderId, Map<Long, Strategy> mapIdToStrategy) {
 		this.exchange = exchange;
 		this.mapStrategies = mapStrategies;
 		this.productMapper = productMapper;
