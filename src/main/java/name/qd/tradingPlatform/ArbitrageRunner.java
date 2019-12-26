@@ -6,6 +6,7 @@ import java.util.Map;
 import name.qd.tradingPlatform.strategies.ControllPanel;
 import name.qd.tradingPlatform.strategies.SimpleMaker;
 import name.qd.tradingPlatform.strategies.Strategy;
+import name.qd.tradingPlatform.strategies.TestBookStrategy;
 import name.qd.tradingPlatform.strategies.MAX.MAXAPITest;
 import name.qd.tradingPlatform.strategies.MAX.MAXAutoTrade;
 import name.qd.tradingPlatform.strategies.MAX.MAXMakers;
@@ -36,9 +37,9 @@ public class ArbitrageRunner {
 //		Strategy strategy = new MAXAutoTrade();
 //		StrategyUtils.start(strategy);
 		
-		Map<ExchangeName, Product[]> map = new HashMap<>();
-		Strategy strategy = new MAXSmartPairFindNotifier();
-		StrategyUtils.start(strategy);
+//		Map<ExchangeName, Product[]> map = new HashMap<>();
+//		Strategy strategy = new MAXSmartPairFindNotifier();
+//		StrategyUtils.start(strategy);
 		
 //		Map<ExchangeName, Product[]> map2 = new HashMap<>();
 //		Strategy strategy2 = new MAXTWDT(map2);
@@ -59,6 +60,12 @@ public class ArbitrageRunner {
 //		Map<ExchangeName, Product[]> map = new HashMap<>();
 //		Strategy strategy = new MAXMarketMakerNew();
 //		StrategyUtils.start(strategy);
+		
+		Map<ExchangeName, Product[]> map = new HashMap<>();
+		Product[] p = new Product[] {Product.BTC_USD, Product.ETH_USD};
+		map.put(ExchangeName.BTSE, p);
+		Strategy strategy = new TestBookStrategy(map);
+		StrategyUtils.start(strategy);
 		
 //		MAXMakers makers = new MAXMakers();
 //		makers.go();
