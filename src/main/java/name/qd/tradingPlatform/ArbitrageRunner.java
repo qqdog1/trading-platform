@@ -2,29 +2,20 @@ package name.qd.tradingPlatform;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
-import name.qd.tradingPlatform.strategies.ControllPanel;
-import name.qd.tradingPlatform.strategies.SimpleMaker;
-import name.qd.tradingPlatform.strategies.Strategy;
-import name.qd.tradingPlatform.strategies.TestBookStrategy;
-import name.qd.tradingPlatform.strategies.MAX.MAXAPITest;
-import name.qd.tradingPlatform.strategies.MAX.MAXAutoTrade;
-import name.qd.tradingPlatform.strategies.MAX.MAXMakers;
-import name.qd.tradingPlatform.strategies.MAX.MAXMarketMaker;
-import name.qd.tradingPlatform.strategies.MAX.MAXMarketMakerNew;
-import name.qd.tradingPlatform.strategies.MAX.MAXOrderTaker;
-import name.qd.tradingPlatform.strategies.MAX.MAXOrderTaker2;
-import name.qd.tradingPlatform.strategies.MAX.MAXSmartPairFindNotifier;
-import name.qd.tradingPlatform.strategies.MAX.MAXTWDT;
-import name.qd.tradingPlatform.utils.StrategyUtils;
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
-import name.qd.tradingPlatform.Constants.Side;
+import name.qd.tradingPlatform.strategies.Strategy;
+import name.qd.tradingPlatform.strategies.TestBookStrategy;
+import name.qd.tradingPlatform.utils.StrategyUtils;
 
 public class ArbitrageRunner {
 	
-	
 	private ArbitrageRunner() {
+		Properties prop = System.getProperties();
+		prop.setProperty("log4j.configurationFile", "./config/log4j2.xml");
+		
 //		ControllPanel controllPanel = new ControllPanel();
 //		controllPanel.addStrategy(MAXAutoTrade.class);
 //		controllPanel.addStrategy(MAXSmartPairFindNotifier.class);

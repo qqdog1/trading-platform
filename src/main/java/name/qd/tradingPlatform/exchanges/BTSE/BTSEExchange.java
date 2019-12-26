@@ -14,6 +14,8 @@ import org.slf4j.LoggerFactory;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
@@ -21,12 +23,15 @@ import name.qd.tradingPlatform.Constants.Side;
 import name.qd.tradingPlatform.exchanges.ChannelMessageHandler;
 import name.qd.tradingPlatform.exchanges.Exchange;
 import name.qd.tradingPlatform.exchanges.ExchangeConfig;
+import name.qd.tradingPlatform.exchanges.ExchangeWebSocketListener;
 import name.qd.tradingPlatform.product.FileProductMapperManager;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.utils.JsonUtils;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.WebSocket;
+import okhttp3.WebSocketListener;
 
 public class BTSEExchange implements Exchange {
 	private Logger log = LoggerFactory.getLogger(BTSEExchange.class);
@@ -38,13 +43,14 @@ public class BTSEExchange implements Exchange {
 	private HttpUrl httpUrl;
 	private Map<String, List<Strategy>> mapStrategies = new HashMap<>();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();
-	
-	private static final String SUB_PREFIX = "orderBookApi:";
+	private WebSocket webSocket;
 	
 	public BTSEExchange(ExchangeConfig exchangeConfig, FileProductMapperManager productMapper) {
 		this.exchangeConfig = exchangeConfig;
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());
+		channelMessageHandler = new BTSEChannelMessageHandler(this, mapStrategies, productMapper);
+		webSocket = createWebSocket(exchangeConfig.getWebSocketAddr(), new ExchangeWebSocketListener(channelMessageHandler));
 	}
 	
 	@Override
@@ -88,10 +94,25 @@ public class BTSEExchange implements Exchange {
 	public void subscribe(Product[] products, Strategy strategy) {
 		List<String> lstProducts = new ArrayList<>();
 		for(Product product : products) {
-			
+			String productString = productMapper.getExchangeProductString(product, getExchangeName());
+			if(!mapStrategies.containsKey(productString)) {
+				List<Strategy> lst = new ArrayList<>();
+				lstProducts.add(productString);
+				mapStrategies.put(productString, lst);
+			}
+			mapStrategies.get(productString).add(strategy);
 		}
-		
-		
+		subscribeProduct(lstProducts);
+	}
+	
+	private void subscribeProduct(List<String> lst) {
+		ObjectNode node = objectMapper.createObjectNode();
+		node.put("op", "subscribe");
+		ArrayNode arrayNode = node.putArray("args");
+		for(String product : lst) {
+			arrayNode.add("orderBookApi:" + product + "_0");
+		}
+		webSocket.send(node.toString());
 	}
 
 	@Override
@@ -116,5 +137,10 @@ public class BTSEExchange implements Exchange {
 	
 	private String sendSyncHttpGet(String url) throws IOException {
 		return okHttpClient.newCall(new Request.Builder().url(url).build()).execute().body().string();
+	}
+	
+	private WebSocket createWebSocket(String url, WebSocketListener listener) {
+		Request request = new Request.Builder().url(url).build();
+		return okHttpClient.newWebSocket(request, listener);
 	}
 }
