@@ -1,4 +1,4 @@
 rest=https://api.btse.com
 ws=wss://ws.btse.com/spotWS
-key=ODVlODU1NGJkMmMzNGNjYTgzMzk0YWJlMTMxZTdlYWE
-secret=MzFmMmVjNTg5ZTkzNDhi
+key=ZWFkNGEzYjA0MGRhNGRiZmE0Yzg5ZWI1YWExZTc5ZjA=
+secret=MWQ5YTI2M2M4ZjMwNGVl

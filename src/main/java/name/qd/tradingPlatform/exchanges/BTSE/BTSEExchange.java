@@ -50,6 +50,7 @@ public class BTSEExchange implements Exchange {
 		this.productMapper = productMapper;
 		httpUrl = HttpUrl.parse(exchangeConfig.getRESTAddr());
 		channelMessageHandler = new BTSEChannelMessageHandler(this, mapStrategies, productMapper);
+		executor.execute(channelMessageHandler);
 		webSocket = createWebSocket(exchangeConfig.getWebSocketAddr(), new ExchangeWebSocketListener(channelMessageHandler));
 	}
 	
@@ -70,14 +71,30 @@ public class BTSEExchange implements Exchange {
 				lst.add(nodeProduct.get("symbol").asText());
 			}
 		} catch (IOException e) {
-			log.error("get exchangeinfo failed.", e);
+			log.error("get {} products failed.", getExchangeName().name(), e);
 		}
 		return lst;
 	}
 
 	@Override
 	public Map<String, Double> getTickSize() {
-		return null;
+		List<String> lstProducts = getProducts();
+		Map<String, Double> map = new HashMap<>();
+		for(String product : lstProducts) {
+			try {
+				HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
+				urlBuilder.addPathSegments("spot/api/v3/market_summary");
+				urlBuilder.addEncodedQueryParameter("symbol", product);
+				String result = sendSyncHttpGet(urlBuilder.build().url().toString());
+				JsonNode node = objectMapper.readTree(result);
+				for(JsonNode nodeProduct : node) {
+					map.put(product, nodeProduct.get("size").asDouble());
+				}
+			} catch (IOException e) {
+				log.error("get {} {} ticksize failed.", getExchangeName().name(), product, e);
+			}
+		}
+		return map;
 	}
 
 	@Override
