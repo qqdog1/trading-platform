@@ -29,13 +29,13 @@ public class BTSEChannelMessageHandler extends ChannelMessageHandler {
 	@Override
 	public void processMessage(JsonNode jsonNode) {
 		String topic = jsonNode.get("topic").asText();
-		if(topic.contains("orderBookApi:")) {
+		if(topic.contains("orderBook:")) {
 			processBook(topic, jsonNode.get("data"));
 		}
 	}
 	
 	private void processBook(String topic, JsonNode node) {
-		String product = topic.replace("orderBookApi:", "").replace("_0", "");
+		String product = topic.replace("orderBook:", "").replace("_0", "");
 		JsonNode nodeBuyArray = node.get("buyQuote");
 		JsonNode nodeSellArray = node.get("sellQuote");
 		double buyQty = 0;
@@ -48,7 +48,7 @@ public class BTSEChannelMessageHandler extends ChannelMessageHandler {
 			buyPrice = nodeData.get("price").asDouble();
 		}
 		if(nodeSellArray.size() > 0) {
-			JsonNode nodeData = nodeSellArray.get(0);
+			JsonNode nodeData = nodeSellArray.get(nodeSellArray.size() - 1);
 			sellQty = nodeData.get("size").asDouble();
 			sellPrice = nodeData.get("price").asDouble();
 		}

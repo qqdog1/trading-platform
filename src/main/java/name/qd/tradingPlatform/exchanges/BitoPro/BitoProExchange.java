@@ -28,7 +28,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
 
-public class BitoProExchange implements Exchange {
+public class BitoProExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(BitoProExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;

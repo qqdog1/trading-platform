@@ -33,7 +33,7 @@ import okhttp3.Request;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class BTSEExchange implements Exchange {
+public class BTSEExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(BTSEExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;
@@ -127,7 +127,7 @@ public class BTSEExchange implements Exchange {
 		node.put("op", "subscribe");
 		ArrayNode arrayNode = node.putArray("args");
 		for(String product : lst) {
-			arrayNode.add("orderBookApi:" + product + "_0");
+			arrayNode.add("orderBook:" + product + "_0");
 		}
 		webSocket.send(node.toString());
 	}
@@ -150,6 +150,39 @@ public class BTSEExchange implements Exchange {
 	@Override
 	public Map<String, Double> queryBalance() {
 		return null;
+	}
+	
+	@Override
+	public Object customizeAction(Object ... objects) {
+		BTSECustomizeAction customizeAction = BTSECustomizeAction.valueOf((String) objects[0]);
+		switch(customizeAction) {
+		case QUERY_CONVERT_RATE:
+			try {
+				return queryConvertRate((String) objects[1], (String) objects[2]);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return null;
+	}
+	
+	private Double queryConvertRate(String from , String to) throws IOException {
+		// https://www.btse.com/api/rateConvert?scrCurrency=BTC&targetCurrency=ETH&amount=1
+		HttpUrl.Builder urlBuilder = httpUrl.newBuilder();
+		urlBuilder.addPathSegments("/rateConvert");
+		urlBuilder.addEncodedQueryParameter("scrCurrency", from);
+		urlBuilder.addEncodedQueryParameter("targetCurrency", to);
+		urlBuilder.addEncodedQueryParameter("amount", "1");
+		Request.Builder requestBuilder = new Request.Builder().url(urlBuilder.build());
+		// TODO 改成custom config 
+		requestBuilder.addHeader("token", exchangeConfig.getApiKey());
+		requestBuilder.addHeader("X-XSRF-TOKEN", exchangeConfig.getSecret());
+		
+		String response = okHttpClient.newCall(requestBuilder.build()).execute().body().string();
+		
+		JsonNode node = objectMapper.readTree(response);
+		
+		return Double.valueOf(node.get("data").asDouble());
 	}
 	
 	private String sendSyncHttpGet(String url) throws IOException {

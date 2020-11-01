@@ -37,7 +37,7 @@ import okhttp3.Request;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class OKExExchange implements Exchange {
+public class OKExExchange extends Exchange {
 	private static Logger log = LoggerFactory.getLogger(OKExExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;

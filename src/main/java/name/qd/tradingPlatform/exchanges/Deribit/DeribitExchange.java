@@ -38,7 +38,7 @@ import okhttp3.Request;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class DeribitExchange implements Exchange {
+public class DeribitExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(DeribitExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;

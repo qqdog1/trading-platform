@@ -40,6 +40,7 @@ public class DeribitWebsocketTest extends Strategy {
 	public void onBook(ExchangeName exchangeName, Product product, MarketBook marketBook) {
 		log.info("{}: bid:{},{}", product.name(), marketBook.topPrice(Side.buy, 1)[0], marketBook.topQty(Side.buy, 1)[0]);
 		log.info("{}: ask:{},{}", product.name(), marketBook.topPrice(Side.sell, 1)[0], marketBook.topQty(Side.sell, 1)[0]);
+	
 	}
 
 	@Override

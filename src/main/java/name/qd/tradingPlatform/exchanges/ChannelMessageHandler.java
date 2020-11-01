@@ -27,7 +27,8 @@ public abstract class ChannelMessageHandler implements Runnable {
 				try {
 					processMessage(objectMapper.readTree(message));
 				}catch(Exception e) {
-					log.error("failed to process message",e);
+					if(!"UNLOGIN_USER connect success".contentEquals(message))
+						log.error("failed to process message",e);
 				}
 			}
 		}	

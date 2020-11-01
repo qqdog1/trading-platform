@@ -30,7 +30,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 
-public class KrakenExchange implements Exchange {
+public class KrakenExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(KrakenExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();

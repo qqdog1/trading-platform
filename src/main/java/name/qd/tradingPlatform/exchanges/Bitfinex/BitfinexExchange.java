@@ -32,7 +32,7 @@ import okhttp3.Request;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class BitfinexExchange implements Exchange {
+public class BitfinexExchange extends Exchange {
 	private static Logger log = LoggerFactory.getLogger(BitfinexExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;

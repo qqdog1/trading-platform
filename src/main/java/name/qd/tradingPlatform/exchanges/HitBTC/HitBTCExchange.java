@@ -37,7 +37,7 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class HitBTCExchange implements Exchange {
+public class HitBTCExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(HitBTCExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final OkHttpClient okHttpClient = new OkHttpClient.Builder().pingInterval(10, TimeUnit.SECONDS).build();

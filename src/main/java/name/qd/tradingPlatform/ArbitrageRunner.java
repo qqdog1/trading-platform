@@ -8,6 +8,7 @@ import name.qd.tradingPlatform.Constants.ExchangeName;
 import name.qd.tradingPlatform.Constants.Product;
 import name.qd.tradingPlatform.strategies.Strategy;
 import name.qd.tradingPlatform.strategies.TestBookStrategy;
+import name.qd.tradingPlatform.strategies.BTSE.ConvertRateLogger;
 import name.qd.tradingPlatform.utils.StrategyUtils;
 
 public class ArbitrageRunner {
@@ -55,7 +56,7 @@ public class ArbitrageRunner {
 		Map<ExchangeName, Product[]> map = new HashMap<>();
 		Product[] p = new Product[] {Product.BTC_USD, Product.ETH_USD};
 		map.put(ExchangeName.BTSE, p);
-		Strategy strategy = new TestBookStrategy(map);
+		Strategy strategy = new ConvertRateLogger(map);
 		StrategyUtils.start(strategy);
 		
 //		MAXMakers makers = new MAXMakers();

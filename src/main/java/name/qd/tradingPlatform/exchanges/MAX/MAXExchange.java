@@ -43,7 +43,7 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class MAXExchange implements Exchange {
+public class MAXExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(MAXExchange.class);
 	private final ExchangeConfig exchangeConfig;
 	private final FileProductMapperManager productMapper;

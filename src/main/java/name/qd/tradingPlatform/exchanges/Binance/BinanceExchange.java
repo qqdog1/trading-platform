@@ -37,7 +37,7 @@ import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 
-public class BinanceExchange implements Exchange {
+public class BinanceExchange extends Exchange {
 	private Logger log = LoggerFactory.getLogger(BinanceExchange.class);
 	private ObjectMapper objectMapper = JsonUtils.getObjectMapper();
 	private final ExchangeConfig exchangeConfig;
