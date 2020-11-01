@@ -54,7 +54,7 @@ public class ArbitrageRunner {
 //		StrategyUtils.start(strategy);
 		
 		Map<ExchangeName, Product[]> map = new HashMap<>();
-		Product[] p = new Product[] {Product.BTC_USD, Product.ETH_USD};
+		Product[] p = new Product[] {Product.BTC_USD};
 		map.put(ExchangeName.BTSE, p);
 		Strategy strategy = new ConvertRateLogger(map);
 		StrategyUtils.start(strategy);
